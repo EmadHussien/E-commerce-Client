@@ -41,7 +41,7 @@ const Button = styled.button`
   flex: 1;
   border: none;
   cursor: pointer;
-  background-color: teal;
+  background-color: #6b818d;
   color: white;
 `;
 

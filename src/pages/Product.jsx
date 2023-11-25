@@ -11,6 +11,7 @@ import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { addProduct } from "../redux/cartSlice";
 import { useDispatch } from "react-redux";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const Container = styled.div``;
 const Wrapper = styled.div`
@@ -99,13 +100,13 @@ const Amount = styled.span`
 const Button = styled.button`
   padding: 12px;
   font-weight: 500;
-  background-color: teal;
+  background-color: #6b818d;
   border: none;
   color: white;
   cursor: pointer;
 
   &:hover {
-    background-color: lightseagreen;
+    background-color: #556e7a;
   }
 `;
 
@@ -126,17 +127,19 @@ export default function Product() {
   const [color, setColor] = useState();
   const [size, setSize] = useState();
   const [cartErr, setCartErr] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "auto" });
 
     const getProduct = async () => {
       try {
+        setIsLoading(true);
         const res = await axios.get(
           `https://e-commerce-backend-two-rouge.vercel.app/products/${productID}`
         );
         console.log(res.data);
         setProduct(res.data);
+        setIsLoading(false);
       } catch (e) {
         console.log(e);
       }
@@ -163,58 +166,76 @@ export default function Product() {
       <Navbar />
       <Announce />
       <Wrapper>
-        <ImageContainer>
-          <Image src={product?.img} />
-        </ImageContainer>
-        <InfoContainer>
-          <Title>{product?.title}</Title>
-          <Description>{product?.description} </Description>
-          <Price>$ {product?.price}</Price>
-          <FilterContainer>
-            <Filter>
-              <FilterTitle>Color</FilterTitle>
-              {product?.color.map((proColor) => (
-                <FilterColor
-                  color={proColor}
-                  key={proColor}
-                  onClick={() => setColor(proColor)}
-                />
-              ))}
-            </Filter>
-            {product?.size.length < 1 ? (
-              ""
-            ) : (
-              <Filter>
-                <FilterTitle>Size</FilterTitle>
-                <FilterSize
-                  name="size"
-                  defaultValue="size"
-                  onChange={(e) => setSize(e.target.value)}
-                >
-                  <FilterSizeOption disabled>size</FilterSizeOption>
-                  {product?.size.map((proSize) => (
-                    <FilterSizeOption key={proSize}>{proSize}</FilterSizeOption>
+        {isLoading ? (
+          <div
+            style={{
+              height: "60vh",
+              display: "flex",
+              justifyContent: "center",
+              width: "100%",
+              alignItems: "center",
+            }}
+          >
+            <CircularProgress style={{ color: "#9BACC4" }} />
+          </div>
+        ) : (
+          <>
+            <ImageContainer>
+              <Image src={product?.img} />
+            </ImageContainer>
+            <InfoContainer>
+              <Title>{product?.title}</Title>
+              <Description>{product?.description} </Description>
+              <Price>$ {product?.price}</Price>
+              <FilterContainer>
+                <Filter>
+                  <FilterTitle>Color</FilterTitle>
+                  {product?.color.map((proColor) => (
+                    <FilterColor
+                      color={proColor}
+                      key={proColor}
+                      onClick={() => setColor(proColor)}
+                    />
                   ))}
-                </FilterSize>
-              </Filter>
-            )}
-          </FilterContainer>
-          {cartErr && (
-            <p style={{ color: "Red", marginBottom: "15px" }}>
-              choose color and size first
-            </p>
-          )}
-          <AddContanier>
-            <AmountContainer>
-              <Remove
-                onClick={() => quantity > 1 && setQuantity(quantity - 1)}
-              />
-              <Amount>{quantity}</Amount>
-              <Add onClick={() => setQuantity(quantity + 1)} />
-            </AmountContainer>
-            <Button onClick={handleClick}>ADD TO CART</Button>
-          </AddContanier>
-        </InfoContainer>
+                </Filter>
+                {product?.size.length < 1 ? (
+                  ""
+                ) : (
+                  <Filter>
+                    <FilterTitle>Size</FilterTitle>
+                    <FilterSize
+                      name="size"
+                      defaultValue="size"
+                      onChange={(e) => setSize(e.target.value)}
+                    >
+                      <FilterSizeOption disabled>size</FilterSizeOption>
+                      {product?.size.map((proSize) => (
+                        <FilterSizeOption key={proSize}>
+                          {proSize}
+                        </FilterSizeOption>
+                      ))}
+                    </FilterSize>
+                  </Filter>
+                )}
+              </FilterContainer>
+              {cartErr && (
+                <p style={{ color: "Red", marginBottom: "15px" }}>
+                  choose color and size first
+                </p>
+              )}
+              <AddContanier>
+                <AmountContainer>
+                  <Remove
+                    onClick={() => quantity > 1 && setQuantity(quantity - 1)}
+                  />
+                  <Amount>{quantity}</Amount>
+                  <Add onClick={() => setQuantity(quantity + 1)} />
+                </AmountContainer>
+                <Button onClick={handleClick}>ADD TO CART</Button>
+              </AddContanier>
+            </InfoContainer>
+          </>
+        )}
       </Wrapper>
       <Newsletter />
       <Footer />
