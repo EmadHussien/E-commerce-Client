@@ -1,8 +1,6 @@
 import React from "react";
 import { styled } from "styled-components";
-import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import { Link } from "react-router-dom";
 const Container = styled.div`
   flex: 1;
@@ -12,7 +10,7 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f5fbfd;
+  background-color: #e7eee5;
   position: relative;
 `;
 const Circle = styled.div`
@@ -66,9 +64,6 @@ export default function Product({ item }) {
       <Circle />
       <Image src={item.img} />
       <Info>
-        <Icon>
-          <ShoppingCartOutlinedIcon />
-        </Icon>
         <Link
           to={`/product/${item._id}`}
           style={{ textDecoration: "none", color: "inherit" }}
@@ -77,9 +72,6 @@ export default function Product({ item }) {
             <SearchOutlinedIcon />
           </Icon>
         </Link>
-        <Icon>
-          <FavoriteBorderOutlinedIcon />
-        </Icon>
       </Info>
     </Container>
   );

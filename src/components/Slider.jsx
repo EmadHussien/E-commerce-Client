@@ -1,43 +1,20 @@
-import React, { useState } from "react";
 import { styled } from "styled-components";
-import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined";
-import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
-import { sliderItems } from "../data";
 import { mobile } from "../responsive";
 
 const Container = styled.div`
-  height: 100vh;
+  height: 80vh;
   width: 100%;
   position: relative;
   overflow: hidden;
   display: flex;
   ${mobile({ display: "none" })}
 `;
-const Arrow = styled.div`
-  height: 50px;
-  width: 50px;
-  background-color: white;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  margin: auto;
-  left: ${(props) => props.direction === "left" && "10px"};
-  right: ${(props) => props.direction === "right" && "10px"};
-  cursor: pointer;
-  opacity: 0.5;
-  z-index: 1;
-`;
+
 const Wrapper = styled.div`
   height: 100%;
   box-sizing: border-box;
   padding: 20px 0px;
   display: flex;
-  transform: translateX(${(props) => -props.slidepage}vw);
-  transition: all 1.5s ease;
 `;
 const Slide = styled.div`
   width: 100vw;
@@ -67,56 +44,27 @@ const Description = styled.p`
   font-weight: 500;
   letter-spacing: 3px;
 `;
-const Button = styled.button`
-  padding: 10px;
-  cursor: pointer;
-  font-size: 20px;
-  background-color: transparent;
-`;
 
 export default function Slider() {
-  const [sliderpage, setSliderPage] = useState(0);
-
-  function handleClick(direction) {
-    if (direction === "left") {
-      if (sliderpage === 0) {
-        setSliderPage(200);
-        return;
-      }
-      setSliderPage((prevState) => prevState - 100);
-    } else if (direction === "right") {
-      if (sliderpage >= 200) {
-        setSliderPage(0);
-        return;
-      }
-      setSliderPage((prevState) => prevState + 100);
-    }
-  }
   return (
     <Container>
-      <Arrow direction="left" onClick={() => handleClick("left")}>
-        <ArrowBackIosOutlinedIcon />
-      </Arrow>
-      <Wrapper slidepage={sliderpage}>
-        {sliderItems.map((sliderItem) => {
-          return (
-            <Slide bg={sliderItem.bg} key={sliderItem.id}>
-              <ImgContainer>
-                <Image src={sliderItem.img} />
-              </ImgContainer>
-              <InfoContainer>
-                <Title>{sliderItem.title}</Title>
-                <Description>{sliderItem.desc}</Description>
-                <Button>SHOP NOW</Button>
-              </InfoContainer>
-            </Slide>
-          );
-        })}
+      <Wrapper>
+        <Slide bg={"fcf1ed"}>
+          <ImgContainer>
+            <Image
+              src={
+                "https://img.freepik.com/free-photo/positive-woman-red-beret-trendy-blouse-smiles-holds-bags-from-clothing-stores_197531-17592.jpg?w=1200&t=st=1700931572~exp=1700932172~hmac=6702074ad8244d2daef0c22645fb5ac9a9b9b9a585b9d6c361ae8d3f492a0f34"
+              }
+            />
+          </ImgContainer>
+          <InfoContainer>
+            <Title>SUMMER SALE</Title>
+            <Description>
+              DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.
+            </Description>
+          </InfoContainer>
+        </Slide>
       </Wrapper>
-
-      <Arrow direction="right" onClick={() => handleClick("right")}>
-        <ArrowForwardIosOutlinedIcon />
-      </Arrow>
     </Container>
   );
 }
