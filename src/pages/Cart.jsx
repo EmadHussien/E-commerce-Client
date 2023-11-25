@@ -12,10 +12,10 @@ import {
   decreaseProductQuantity,
   increaseProductQuantity,
   clearCart,
-  loadCartFromDB,
 } from "../redux/cartSlice";
 import useUserRequests from "../Utils/useUserRequests";
 import StripeCheckout from "react-stripe-checkout";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const Container = styled.div``;
 const Wrapper = styled.div`
@@ -317,113 +317,126 @@ export default function Cart() {
             )}
           </StripeCheckout>
         </Top>
-        <Bottom>
-          <Info>
-            {paymentSucceeded === "Successed" && (
-              <div
-                style={{
-                  display: "flex",
-                  height: "100%",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <h3 style={{ color: "green" }}>
-                  Success! Your payment is confirmed, and your order is on its
-                  way.
-                </h3>
-              </div>
-            )}
-            {paymentSucceeded === "Failed" && (
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  margin: "20px",
-                }}
-              >
-                <h3 style={{ color: "Red" }}>
-                  Payment failed! We have an issue right now, try again later.
-                </h3>
-              </div>
-            )}
-            {cartView.map((product) => (
-              <>
-                <Product key={product._id}>
-                  <ProductDetails>
-                    <Image src={product.img} />
-                    <Details>
-                      <ProductName>
-                        <b>Product:</b> {product.title}
-                      </ProductName>
-                      <ProductId>
-                        <b>ID:</b> {product._id}
-                      </ProductId>
-                      <ProductColor color={product.color} />
-                      <ProductSize>
-                        <b>Size:</b> {product.size}
-                      </ProductSize>
-                    </Details>
-                  </ProductDetails>
-                  <PriceDetails>
-                    <ProductAmountContainer>
-                      <Remove
-                        onClick={() =>
-                          dispatch(decreaseProductQuantity(product._id))
-                        }
-                      />
-                      <ProductAmount>{product.quantity}</ProductAmount>
-                      <Add
-                        onClick={() =>
-                          dispatch(increaseProductQuantity(product._id))
-                        }
-                      />
-                    </ProductAmountContainer>
-                    <ProductPrice>$ {product.price}</ProductPrice>
-                  </PriceDetails>
-                </Product>
+        <Bottom
+          style={{
+            height: cart.loadFromDb && "60vh",
+            justifyContent: cart.loadFromDb && "center",
+            alignItems: cart.loadFromDb && "center",
+          }}
+        >
+          {cart.loadFromDb ? (
+            <CircularProgress style={{ color: "#9BACC4" }} />
+          ) : (
+            <>
+              <Info>
+                {paymentSucceeded === "Successed" && (
+                  <div
+                    style={{
+                      display: "flex",
+                      height: "100%",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <h3 style={{ color: "green" }}>
+                      Success! Your payment is confirmed, and your order is on
+                      its way.
+                    </h3>
+                  </div>
+                )}
+                {paymentSucceeded === "Failed" && (
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      margin: "20px",
+                    }}
+                  >
+                    <h3 style={{ color: "Red" }}>
+                      Payment failed! We have an issue right now, try again
+                      later.
+                    </h3>
+                  </div>
+                )}
+                {cartView.map((product) => (
+                  <>
+                    <Product key={product._id}>
+                      <ProductDetails>
+                        <Image src={product.img} />
+                        <Details>
+                          <ProductName>
+                            <b>Product:</b> {product.title}
+                          </ProductName>
+                          <ProductId>
+                            <b>ID:</b> {product._id}
+                          </ProductId>
+                          <ProductColor color={product.color} />
+                          <ProductSize>
+                            <b>Size:</b> {product.size}
+                          </ProductSize>
+                        </Details>
+                      </ProductDetails>
+                      <PriceDetails>
+                        <ProductAmountContainer>
+                          <Remove
+                            onClick={() =>
+                              dispatch(decreaseProductQuantity(product._id))
+                            }
+                          />
+                          <ProductAmount>{product.quantity}</ProductAmount>
+                          <Add
+                            onClick={() =>
+                              dispatch(increaseProductQuantity(product._id))
+                            }
+                          />
+                        </ProductAmountContainer>
+                        <ProductPrice>$ {product.price}</ProductPrice>
+                      </PriceDetails>
+                    </Product>
+                    <HR />
+                  </>
+                ))}
+              </Info>
+              <Summary>
+                <SummaryTitle>ORDER SUMMARY</SummaryTitle>
+                <SummaryItem>
+                  <SummaryItemText>Subtotal </SummaryItemText>
+                  <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
+                </SummaryItem>
+                <SummaryItem>
+                  <SummaryItemText>Estimated Shipping </SummaryItemText>
+                  <SummaryItemPrice>$ 5.90</SummaryItemPrice>
+                </SummaryItem>
+                <SummaryItem>
+                  <SummaryItemText>Shipping Discount </SummaryItemText>
+                  <SummaryItemPrice>$ -5.90</SummaryItemPrice>
+                </SummaryItem>
                 <HR />
-              </>
-            ))}
-          </Info>
-          <Summary>
-            <SummaryTitle>ORDER SUMMARY</SummaryTitle>
-            <SummaryItem>
-              <SummaryItemText>Subtotal </SummaryItemText>
-              <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
-            </SummaryItem>
-            <SummaryItem>
-              <SummaryItemText>Estimated Shipping </SummaryItemText>
-              <SummaryItemPrice>$ 5.90</SummaryItemPrice>
-            </SummaryItem>
-            <SummaryItem>
-              <SummaryItemText>Shipping Discount </SummaryItemText>
-              <SummaryItemPrice>$ -5.90</SummaryItemPrice>
-            </SummaryItem>
-            <HR />
-            <SummaryItem type="total">
-              <SummaryItemText>Total</SummaryItemText>
-              <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
-            </SummaryItem>
+                <SummaryItem type="total">
+                  <SummaryItemText>Total</SummaryItemText>
+                  <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
+                </SummaryItem>
 
-            <StripeCheckout
-              name="e& H. Shop"
-              image="https://i.ibb.co/y6hNFzr/e-H.png"
-              billingAddress
-              shippingAddress
-              description={`your total is ${cart.total}`}
-              amount={cart.total * 100}
-              token={onToken}
-              stripeKey={process.env.REACT_APP_STRIPE}
-            >
-              {cart.total > 0 && user ? (
-                <Button>CHECKOUT NOW</Button>
-              ) : (
-                <DisabledButton disabled>CHECKOUT NOW</DisabledButton>
-              )}
-            </StripeCheckout>
-          </Summary>
+                <StripeCheckout
+                  name="e& H. Shop"
+                  image="https://i.ibb.co/y6hNFzr/e-H.png"
+                  billingAddress
+                  shippingAddress
+                  description={`your total is ${cart.total}`}
+                  amount={cart.total * 100}
+                  token={onToken}
+                  stripeKey={process.env.REACT_APP_STRIPE}
+                >
+                  {cart.total > 0 && user ? (
+                    <Button>CHECKOUT NOW</Button>
+                  ) : (
+                    <DisabledButton disabled>CHECKOUT NOW</DisabledButton>
+                  )}
+                </StripeCheckout>
+              </Summary>
+            </>
+          )}
         </Bottom>
       </Wrapper>
       <Footer />

@@ -7,6 +7,7 @@ const cartSlice = createSlice({
     quantity: 0,
     total: 0,
     cartID: null,
+    loadFromDb: false,
   },
   reducers: {
     addProduct: (state, action) => {
@@ -53,10 +54,9 @@ const cartSlice = createSlice({
         return total + price * quantity;
       }, 0);
       state.cartID = action.payload._id;
-      console.log(state.products);
-      console.log(state.quantity);
-      console.log(state.total);
-      console.log(state.cartID);
+    },
+    cartLoaderState: (state, action) => {
+      state.loadFromDb = action.payload;
     },
   },
 });
@@ -67,5 +67,6 @@ export const {
   decreaseProductQuantity,
   clearCart,
   loadCartFromDB,
+  cartLoaderState,
 } = cartSlice.actions;
 export default cartSlice.reducer;

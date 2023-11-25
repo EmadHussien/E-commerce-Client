@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { logOut } from "../redux/userSlice";
-import { clearCart, loadCartFromDB } from "../redux/cartSlice";
+import { cartLoaderState, clearCart, loadCartFromDB } from "../redux/cartSlice";
 import useUserRequests from "../Utils/useUserRequests";
 const Container = styled.div`
   height: 60px;
@@ -78,6 +78,7 @@ export default function Navbar() {
   const quantity = useSelector((state) => state.cart.quantity);
   async function loadUserCart() {
     try {
+      dispatch(cartLoaderState(true));
       const res = await userRequests.get(
         `/carts/${user._id}`,
         {},
@@ -86,6 +87,7 @@ export default function Navbar() {
         }
       );
       dispatch(loadCartFromDB(res.data));
+      dispatch(cartLoaderState(false));
     } catch (e) {
       console.log(e);
     }
