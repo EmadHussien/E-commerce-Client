@@ -25,10 +25,12 @@ const Left = styled.div`
   flex: 1;
   display: flex;
   align-items: center;
+  ${mobile({ display: "none" })}
 `;
 const Center = styled.div`
   flex: 1;
   text-align: center;
+  ${mobile({ flex: "1.5" })}
 `;
 const Right = styled.div`
   flex: 1;
@@ -73,9 +75,7 @@ export default function Navbar() {
   const user = useSelector((state) => state.user.currentUser);
   const cart = useSelector((state) => state.cart);
 
-  console.log(user);
   const quantity = useSelector((state) => state.cart.quantity);
-  console.log(quantity);
   async function loadUserCart() {
     try {
       const res = await userRequests.get(
@@ -85,7 +85,6 @@ export default function Navbar() {
           withCredentials: true,
         }
       );
-      console.log(res);
       dispatch(loadCartFromDB(res.data));
     } catch (e) {
       console.log(e);
@@ -93,7 +92,6 @@ export default function Navbar() {
   }
   useEffect(() => {
     if (cart.products.length < 1 && user) {
-      console.log("Loading is running");
       loadUserCart();
     }
   }, []);
@@ -109,8 +107,6 @@ export default function Navbar() {
     if (res.status === 204) {
       dispatch(logOut());
     }
-    console.log(res.status);
-    console.log("logging out");
   }
   return (
     <Container>
@@ -126,7 +122,7 @@ export default function Navbar() {
         <Center>
           <Logo>
             <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
-              e& H.
+              e& H. store
             </Link>
           </Logo>
         </Center>
@@ -161,7 +157,7 @@ export default function Navbar() {
                   style={{ textDecoration: "none", color: "inherit" }}
                   onClick={handleLogOut}
                 >
-                  LOG OUT
+                  Log out
                 </Link>
               </MenuItem>
             </>
