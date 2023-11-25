@@ -8,8 +8,6 @@ export default function useUserRequests() {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.user?.currentUser?.accessToken);
 
-  console.log(token);
-
   // creating axios object for user requests
   const userRequests = axios.create({
     baseURL: "https://e-commerce-backend-two-rouge.vercel.app",
@@ -25,7 +23,6 @@ export default function useUserRequests() {
         const data = await getNewAccessToken();
         dispatch(setNewToken(data));
 
-        console.log("supposed to be the newToken: ", data);
         config.headers["Authorization"] = "Bearer " + data;
       } else {
         config.headers["Authorization"] = "Bearer " + token;

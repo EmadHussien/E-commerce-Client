@@ -9,7 +9,6 @@ export default async function getNewAccessToken() {
       }
     );
 
-    console.log("the newToken From refresh: ", newToken.data.accessToken);
     return newToken.data.accessToken;
   } catch (err) {
     console.log(err);

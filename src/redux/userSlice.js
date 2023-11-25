@@ -7,15 +7,12 @@ const userSlice = createSlice({
   },
   reducers: {
     addUser: (state, action) => {
-      console.log(action.payload);
       state.currentUser = action.payload;
     },
     setNewToken: (state, action) => {
-      console.log(action.payload);
       state.currentUser.accessToken = action.payload;
     },
     logOut: (state, action) => {
-      console.log(action.payload);
       state.currentUser = null;
     },
   },

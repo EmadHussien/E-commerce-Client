@@ -121,7 +121,6 @@ export default function Product() {
   const { pathname } = useLocation();
   const dispatch = useDispatch();
   const productID = pathname.split("/")[2];
-  //console.log(productID);
   const [product, setProduct] = useState();
   const [quantity, setQuantity] = useState(1);
   const [color, setColor] = useState();
@@ -137,7 +136,6 @@ export default function Product() {
         const res = await axios.get(
           `https://e-commerce-backend-two-rouge.vercel.app/products/${productID}`
         );
-        console.log(res.data);
         setProduct(res.data);
         setIsLoading(false);
       } catch (e) {
@@ -146,7 +144,6 @@ export default function Product() {
     };
     getProduct();
   }, []);
-  console.log(color, size, quantity);
 
   useEffect(() => {
     if ((size || product?.size.length < 1) && color) {

@@ -89,16 +89,12 @@ export default function Login() {
         }
       );
 
-      // console.log(res.data);
       if (res.status === 200) {
         setMsg("");
-        console.log("User Logged in Successfully");
         dispatch(addUser({ ...res.data }));
         navigate("/");
       }
     } catch (error) {
-      console.error(error);
-      console.log(error.response.status);
       if (error.response.status === 401 || error.response.status === 500) {
         setMsg(
           "Login failed. Please double check your credentials and try again."
@@ -116,7 +112,6 @@ export default function Login() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(user);
     Login();
   }
   return (

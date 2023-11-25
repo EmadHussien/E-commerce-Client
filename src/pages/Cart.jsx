@@ -205,14 +205,12 @@ export default function Cart() {
           withCredentials: true,
         }
       );
-      console.log(res);
     } catch (e) {
       console.log(e);
     }
   }
   useEffect(() => {
     if (cart.cartID) {
-      console.log("Cart UPDATE REQ IS RUNNING");
       updateDbCart();
     }
   }, [cart]);
@@ -225,8 +223,6 @@ export default function Cart() {
       };
     });
     const address = `${stripeToken?.card.address_line1} ${stripeToken?.card.address_city} ${stripeToken?.card.address_country}`;
-    console.log(products);
-    console.log(address);
 
     try {
       const res = await userRequests.post(
@@ -241,7 +237,6 @@ export default function Cart() {
           withCredentials: true,
         }
       );
-      console.log(res.data);
       dispatch(clearCart());
       setPaymentSucceeded("Successed");
       // clear cart
@@ -250,14 +245,12 @@ export default function Cart() {
     } catch (e) {
       // show message of failure
       setPaymentSucceeded("Failed");
-      console.log(e);
     }
   }
 
   function onToken(token) {
     setStripeToken(token);
   }
-  console.log(stripeToken);
 
   useEffect(() => {
     if (stripeToken) {
@@ -283,9 +276,7 @@ export default function Cart() {
       cartView.push(product);
     }
   }
-  console.log(cartView);
 
-  //console.log(cart);
   return (
     <Container>
       <Navbar />

@@ -79,16 +79,12 @@ export default function Register() {
         "https://e-commerce-backend-two-rouge.vercel.app/auth/register",
         userData
       );
-      console.log(res.data);
       if (res.status === 201) {
-        console.log("USer Created Successfully");
         setMsg(
           "Registration completed! Please sign in to access your account."
         );
       }
     } catch (error) {
-      console.error(error);
-      console.log(error.response.status);
       if (error.response.status === 409 || error.response.status === 500) {
         setMsg("Username or Email is already taken");
       }
