@@ -84,8 +84,12 @@ const Details = styled.div`
   justify-content: space-around;
   ${mobile({ flexDirection: "column" })}
 `;
-const ProductName = styled.span``;
-const ProductId = styled.span``;
+const ProductName = styled.span`
+  ${mobile({ fontSize: "16px" })}
+`;
+const ProductId = styled.span`
+  ${mobile({ fontSize: "10px" })}
+`;
 const ProductColor = styled.div`
   width: 20px;
   height: 20px;
@@ -165,12 +169,12 @@ const Button = styled.button`
   cursor: pointer;
   border: none;
   color: white;
-  background-color: teal;
+  background-color: #6b818d;
   &:hover {
-    background-color: lightseagreen;
+    background-color: #556e7a;
   }
   &:active {
-    background-color: teal;
+    background-color: #6b818d;
   }
 `;
 const DisabledButton = styled(Button)`
@@ -188,6 +192,7 @@ export default function Cart() {
   const cartView = [];
   const [stripeToken, setStripeToken] = useState(null);
   const [paymentSucceeded, setPaymentSucceeded] = useState("NO STATE");
+
   async function updateDbCart() {
     try {
       const res = await userRequests.put(

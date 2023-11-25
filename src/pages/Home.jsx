@@ -6,16 +6,12 @@ import Categories from "../components/Categories";
 import Products from "../components/Products";
 import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
+import { useEffect } from "react";
 
 export default function Home() {
-  /*   const { userRequests } = useUserRequests();
-  const userID = useSelector((state) => state.user.currentUser._id);
-
-  async function getSingleUSer() {
-    const res = await userRequests.get(`/users/${userID}`);
-    console.log(res);
-  }
-  getSingleUSer(); */
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "auto" });
+  });
   return (
     <div>
       <Navbar />

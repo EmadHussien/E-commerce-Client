@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { logOut } from "../redux/userSlice";
-import { loadCartFromDB } from "../redux/cartSlice";
+import { clearCart, loadCartFromDB } from "../redux/cartSlice";
 import useUserRequests from "../Utils/useUserRequests";
 const Container = styled.div`
   height: 60px;
@@ -106,6 +106,7 @@ export default function Navbar() {
     );
     if (res.status === 204) {
       dispatch(logOut());
+      dispatch(clearCart());
     }
   }
   return (
