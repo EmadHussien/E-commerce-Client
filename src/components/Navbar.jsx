@@ -10,10 +10,7 @@ import axios from "axios";
 import { logOut } from "../redux/userSlice";
 import { cartLoaderState, clearCart, loadCartFromDB } from "../redux/cartSlice";
 import useUserRequests from "../Utils/useUserRequests";
-const Container = styled.div`
-  height: 60px;
-  ${mobile({ height: "40px", marginBottom: "16px" })}
-`;
+
 const FixedNavbar = styled.div`
   height: 60px;
   position: fixed;
@@ -121,8 +118,6 @@ export default function Navbar() {
     }
   }
   return (
-    /*     <Container>
-     */
     <FixedNavbar>
       <Wrapper>
         <Left>
@@ -190,6 +185,5 @@ export default function Navbar() {
         </Right>
       </Wrapper>
     </FixedNavbar>
-    /* </Container> */
   );
 }

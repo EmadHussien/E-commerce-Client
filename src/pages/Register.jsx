@@ -80,7 +80,6 @@ export default function Register() {
         "https://e-commerce-backend-two-rouge.vercel.app/auth/register",
         userData
       );
-      console.log(res);
       if (res.status === 201) {
         setMsg("Registration complete. Redirecting to login page...");
         setTimeout(() => {

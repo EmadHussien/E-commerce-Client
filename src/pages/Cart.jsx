@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { styled } from "styled-components";
 import Navbar from "../components/Navbar";
 import Announce from "../components/Announce";
@@ -350,8 +350,8 @@ export default function Cart() {
                     </h3>
                   </div>
                 )}
-                {cartView.map((product) => (
-                  <>
+                {cartView.map((product, index) => (
+                  <Fragment key={index}>
                     <Product key={product._id}>
                       <ProductDetails>
                         <Image src={product.img} />
@@ -385,8 +385,8 @@ export default function Cart() {
                         <ProductPrice>$ {product.price}</ProductPrice>
                       </PriceDetails>
                     </Product>
-                    <HR />
-                  </>
+                    <HR key={index} />
+                  </Fragment>
                 ))}
               </Info>
               <Summary>
