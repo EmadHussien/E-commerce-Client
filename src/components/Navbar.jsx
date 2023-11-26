@@ -14,6 +14,15 @@ const Container = styled.div`
   height: 60px;
   ${mobile({ height: "40px", marginBottom: "16px" })}
 `;
+const FixedNavbar = styled.div`
+  height: 60px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: white;
+`;
+
 const Wrapper = styled.div`
   padding: 10px 20px;
   display: flex;
@@ -112,7 +121,9 @@ export default function Navbar() {
     }
   }
   return (
-    <Container>
+    /*     <Container>
+     */
+    <FixedNavbar>
       <Wrapper>
         <Left>
           <Language>EN</Language>
@@ -178,6 +189,7 @@ export default function Navbar() {
           </MenuItem>
         </Right>
       </Wrapper>
-    </Container>
+    </FixedNavbar>
+    /* </Container> */
   );
 }

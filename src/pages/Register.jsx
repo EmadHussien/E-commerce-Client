@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { styled } from "styled-components";
 import { mobile } from "../responsive";
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
@@ -61,6 +61,7 @@ const Button = styled.button`
 `;
 
 export default function Register() {
+  const navigate = useNavigate();
   const [msg, setMsg] = useState("");
   const [user, setUser] = useState({
     firstname: "",
@@ -79,10 +80,12 @@ export default function Register() {
         "https://e-commerce-backend-two-rouge.vercel.app/auth/register",
         userData
       );
+      console.log(res);
       if (res.status === 201) {
-        setMsg(
-          "Registration completed! Please sign in to access your account."
-        );
+        setMsg("Registration complete. Redirecting to login page...");
+        setTimeout(() => {
+          navigate("/login");
+        }, 3000);
       }
     } catch (error) {
       if (error.response.status === 409 || error.response.status === 500) {
@@ -163,7 +166,10 @@ export default function Register() {
           </Agreement>
           <p
             style={{
-              color: "red",
+              color:
+                msg === "Registration complete. Redirecting to login page..."
+                  ? "green"
+                  : "red",
               marginBottom: "20px",
               width: "80%",
               fontSize: "14px",
