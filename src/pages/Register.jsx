@@ -85,7 +85,7 @@ export default function Register() {
         setMsg("Registration complete. Redirecting to login page...");
         setTimeout(() => {
           navigate("/login");
-        }, 3000);
+        }, 2000);
       }
     } catch (error) {
       if (error.response.status === 409 || error.response.status === 500) {
