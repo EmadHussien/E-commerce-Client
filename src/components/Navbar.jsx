@@ -78,7 +78,7 @@ export default function Navbar() {
   const quantity = useSelector((state) => state.cart.quantity);
   async function loadUserCart() {
     try {
-      dispatch(cartLoaderState(true));
+      // dispatch(cartLoaderState(true));
       const res = await userRequests.get(
         `/carts/${user._id}`,
         {},
@@ -87,7 +87,7 @@ export default function Navbar() {
         }
       );
       dispatch(loadCartFromDB(res.data));
-      dispatch(cartLoaderState(false));
+      //  dispatch(cartLoaderState(false));
     } catch (e) {
       console.log(e);
     }
