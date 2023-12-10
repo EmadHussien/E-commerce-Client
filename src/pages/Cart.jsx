@@ -232,6 +232,8 @@ export default function Cart() {
           amount: cart.total * 100,
           products,
           address,
+          username: user.username,
+          img: user.img || "",
         },
         {
           withCredentials: true,
