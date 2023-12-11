@@ -1,70 +1,165 @@
-# Getting Started with Create React App
+# E&H E-Commerce - FullStack
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
 
-## Available Scripts
+Welcome to the E&H E-Commerce platform! This FullStack application is designed to provide a comprehensive and secure online shopping experience. From user authentication to seamless payment processing, this platform encompasses a wide range of features for both users and administrators.
 
-In the project directory, you can run:
+🚀 **Live Demo:** Explore the E&H E-Commerce platform [here](https://e-commerce-client-sand.vercel.app/).
 
-### `npm start`
+🔗 **Backend Repository:** Delve into the backend magic at [E-commerce-backend](https://github.com/EmadHussien/E-commerce-backend).
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Technologies Used
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- ReactJS
+- Styled Components with Material UI
+- Redux and Redux Persist for efficient state management
+- Express framework for server-side CRUD operations (MVC architecture)
+- MongoDB with Mongoose schema for data modeling
+- JWT for secure authentication and authorization
+- Stripe API for payment processing
+- Git for version control
+- GitHub for source code management
+- Vercel for frontend deployment
 
-### `npm test`
+## Features
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. **User Authentication:**
 
-### `npm run build`
+   - Users can securely register and log in with JWT and refresh tokens.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. **Order Processing:**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+   - Seamless order processing with Stripe integration for card payments.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3. **Shopping Cart:**
 
-### `npm run eject`
+   - Users can easily add products to their cart and remove them.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+4. **Product Filtering:**
+   - Filter products by color, size, and price (high or low).
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Getting Started
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Prerequisites
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- Node.js installed
+- Git installed
+- MongoDB installed (for backend)
 
-## Learn More
+### Installation
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1. Clone the client repository:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+   ```bash
+   git clone https://github.com/EmadHussien/e-commerce-client-repo.git
+   ```
 
-### Code Splitting
+# E&H E-Commerce - FullStack
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Overview
 
-### Analyzing the Bundle Size
+Welcome to the E&H E-Commerce platform! This FullStack application is designed to provide a comprehensive and secure online shopping experience. From user authentication to seamless payment processing, this platform encompasses a wide range of features for both users and administrators.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+🚀 **Live Demo:** Explore the E&H E-Commerce platform [here](https://e-commerce-client-sand.vercel.app/).
 
-### Making a Progressive Web App
+🔗 **Backend Repository:** Delve into the backend magic at [E-commerce-backend](https://github.com/EmadHussien/E-commerce-backend).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Technologies Used
 
-### Advanced Configuration
+- ReactJS
+- Styled Components with Material UI
+- Redux and Redux Persist for efficient state management
+- Express framework for server-side CRUD operations (MVC architecture)
+- MongoDB with Mongoose schema for data modeling
+- JWT for secure authentication and authorization
+- Stripe API for payment processing
+- GitHub for source code management
+- Vercel for frontend deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Features
+
+1. **User Authentication:**
+
+   - Users can securely register and log in with JWT and refresh tokens.
+
+2. **Order Processing:**
+
+   - Seamless order processing with Stripe integration for card payments.
+
+3. **Shopping Cart:**
+
+   - Users can easily add products to their cart and remove them.
+
+4. **Product Filtering:**
+   - Filter products by color, size, and price (high or low).
+
+## Getting Started
+
+Note: This project requires environment variables for configuration, including database connection details and other sensitive information. As the .env file is not included in this repository for security reasons, you will need to set up your environment variables.
+
+### Prerequisites
+
+- Node.js installed
+- Git installed
+- MongoDB installed (for backend)
+
+### Installation
+
+1. Clone the client repository:
+
+   ```bash
+   git clone https://github.com/EmadHussien/E-commerce-Client.git
+   ```
+
+2. Install client dependencies:
+   ```bash
+   cd E-commerce-Client
+   npm install
+   ```
+3. Clone the backend repository:
+
+   ```bash
+   git clone https://github.com/EmadHussien/E-commerce-backend.git
+   ```
+
+4. Install backend dependencies:
+
+   ```bash
+   cd E-commerce-backend
+   npm install
+   ```
+
+### Running the App
+
+Client (Frontend)
+
+```bash
+cd E-commerce-Client
+npm start
+```
+
+Access the client app at http://localhost:3000.
+
+Backend
+
+```bash
+cd E-commerce-backend
+npm start
+```
+
+Ensure MongoDB is running with your environment . The backend will be available at http://localhost:5000.
 
 ### Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- Frontend Deployment (Vercel): [here](https://e-commerce-client-sand.vercel.app/).
 
-### `npm run build` fails to minify
+### Acknowledgments
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Thanks to React for the powerful user interface library.
+- Special thanks to Stripe for seamless payment processing.
+
+Explore the E&H E-Commerce platform and redefine your online shopping experience!
+
+### Home Page Screenshot
+
+<img src="https://github.com/EmadHussien/E-commerce-Client/assets/31719363/001c48c8-e832-45bc-8d0c-96e8706c4c85"  />
