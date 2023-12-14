@@ -5,33 +5,50 @@ import Login from "./pages/Login";
 import Product from "./pages/Product";
 import ProductList from "./pages/ProductList";
 import Register from "./pages/Register";
-import { Navigate, createBrowserRouter, useLocation } from "react-router-dom";
+import { Navigate, Outlet, createBrowserRouter } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Announce from "./components/Announce";
+import Footer from "./components/Footer";
+import LogginGuard from "./components/LogginGuard";
 
-const user = false;
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-  },
-  {
-    path: "/products/:category",
-    element: <ProductList />,
-  },
-  {
-    path: "/product/:id",
-    element: <Product />,
+    children: [
+      {
+        index: true,
+        element: <Home />,
+      },
+      {
+        path: "/products/:category",
+        element: <ProductList />,
+      },
+      {
+        path: "/product/:id",
+        element: <Product />,
+      },
+      {
+        path: "/cart",
+        element: <Cart />,
+      },
+    ],
   },
   {
     path: "/login",
-    element: user ? <Navigate to="/" replace={true} /> : <Login />,
+    element: (
+      <LogginGuard>
+        <Login />
+      </LogginGuard>
+    ),
   },
   {
     path: "/register",
-    element: user ? <Navigate to="/" replace={true} /> : <Register />,
-  },
-  {
-    path: "/cart",
-    element: <Cart />,
+    element: (
+      <LogginGuard>
+        <Register />
+      </LogginGuard>
+    ),
   },
   {
     path: "*",
@@ -42,7 +59,10 @@ export const router = createBrowserRouter([
 function App() {
   return (
     <div>
-      <Home />
+      <Navbar />
+      <Announce />
+      <Outlet />
+      <Footer />
     </div>
   );
 }

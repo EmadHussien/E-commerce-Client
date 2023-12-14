@@ -9,7 +9,7 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import { mobile } from "../responsive";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
-import { addProduct } from "../redux/cartSlice";
+import { addProduct, refreshCartView } from "../redux/cartSlice";
 import { useDispatch } from "react-redux";
 import CircularProgress from "@mui/material/CircularProgress";
 
@@ -160,8 +160,6 @@ export default function Product() {
   }
   return (
     <Container>
-      <Navbar />
-      <Announce />
       <Wrapper>
         {isLoading ? (
           <div
@@ -234,8 +232,6 @@ export default function Product() {
           </>
         )}
       </Wrapper>
-      <Newsletter />
-      <Footer />
     </Container>
   );
 }

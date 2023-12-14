@@ -45,6 +45,7 @@ export default function ProductList() {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "auto" });
   }, []);
+
   function handleFilters(e) {
     const value = e.target.value;
     setFilters({ ...filters, [e.target.name]: value });
@@ -52,8 +53,6 @@ export default function ProductList() {
 
   return (
     <Container>
-      <Navbar />
-      <Announce />
       <Title>{category.toUpperCase()}</Title>
       <FilterContainer>
         <Filter>
@@ -61,13 +60,13 @@ export default function ProductList() {
 
           <Select name="color" defaultValue={"Color"} onChange={handleFilters}>
             <Option disabled>Color</Option>
-            <Option>White</Option>
-            <Option>Black</Option>
-            <Option>Red</Option>
-            <Option>Blue</Option>
-            <Option>Yellow</Option>
-            <Option>Green</Option>
-            <Option>Brown</Option>
+            <Option>white</Option>
+            <Option>black</Option>
+            <Option>red</Option>
+            <Option>blue</Option>
+            <Option>yellow</Option>
+            <Option>green</Option>
+            <Option>brown</Option>
           </Select>
           <Select name="size" defaultValue={"Size"} onChange={handleFilters}>
             <Option disabled>Size</Option>
@@ -93,8 +92,6 @@ export default function ProductList() {
         </Filter>
       </FilterContainer>
       <Products category={category} filters={filters} sort={sort} />
-      <Newsletter />
-      <Footer />
     </Container>
   );
 }

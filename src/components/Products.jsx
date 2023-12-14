@@ -56,16 +56,27 @@ export default function Products({ category, filters, sort }) {
   };
 
   useEffect(() => {
-    category &&
-      (filters?.color || filters?.size) &&
-      setFilteredProducts(
-        products.filter((product) => {
-          return (
-            product.color.includes(filters.color) ||
-            product.size.includes(filters.size)
-          );
-        })
-      );
+    if (category) {
+      if (filters?.color && filters?.size) {
+        setFilteredProducts(
+          products.filter((product) => {
+            return (
+              product.color.includes(filters.color) &&
+              product.size.includes(filters.size)
+            );
+          })
+        );
+      } else if (filters?.color || filters?.size) {
+        setFilteredProducts(
+          products.filter((product) => {
+            return (
+              product.color.includes(filters.color) ||
+              product.size.includes(filters.size)
+            );
+          })
+        );
+      }
+    }
   }, [products, category, filters]);
 
   useEffect(() => {
