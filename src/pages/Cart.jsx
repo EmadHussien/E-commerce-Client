@@ -12,6 +12,7 @@ import {
   decreaseProductQuantity,
   increaseProductQuantity,
   clearCart,
+  clearCartAfterPayment,
 } from "../redux/cartSlice";
 import useUserRequests from "../Utils/useUserRequests";
 import StripeCheckout from "react-stripe-checkout";
@@ -193,28 +194,9 @@ export default function Cart() {
   const [stripeToken, setStripeToken] = useState(null);
   const [paymentSucceeded, setPaymentSucceeded] = useState("NO STATE");
 
-  async function updateDbCart() {
-    try {
-      const res = await userRequests.put(
-        `/carts/${cart.cartID}`,
-        {
-          userID: user._id,
-          products: cart.products,
-        },
-        {
-          withCredentials: true,
-        }
-      );
-    } catch (e) {
-      console.log(e);
-    }
-  }
   useEffect(() => {
-    if (cart.cartID) {
-      updateDbCart();
-    }
-  }, [cart]);
-
+    window.scrollTo({ top: 0, behavior: "auto" });
+  }, []);
   async function makePayment() {
     const products = cartView.map((item) => {
       return {
@@ -239,7 +221,7 @@ export default function Cart() {
           withCredentials: true,
         }
       );
-      dispatch(clearCart());
+      dispatch(clearCartAfterPayment());
       setPaymentSucceeded("Successed");
       // clear cart
       // show message of success
@@ -281,8 +263,6 @@ export default function Cart() {
 
   return (
     <Container>
-      <Navbar />
-      <Announce />
       <Wrapper>
         <Title>YOUR BAG</Title>
         <Top>
@@ -354,7 +334,7 @@ export default function Cart() {
                 )}
                 {cartView.map((product, index) => (
                   <Fragment key={index}>
-                    <Product key={product._id}>
+                    <Product key={product._id + product.color + product.size}>
                       <ProductDetails>
                         <Image src={product.img} />
                         <Details>
@@ -374,13 +354,25 @@ export default function Cart() {
                         <ProductAmountContainer>
                           <Remove
                             onClick={() =>
-                              dispatch(decreaseProductQuantity(product._id))
+                              dispatch(
+                                decreaseProductQuantity({
+                                  id: product._id,
+                                  color: product.color,
+                                  size: product.size,
+                                })
+                              )
                             }
                           />
                           <ProductAmount>{product.quantity}</ProductAmount>
                           <Add
                             onClick={() =>
-                              dispatch(increaseProductQuantity(product._id))
+                              dispatch(
+                                increaseProductQuantity({
+                                  id: product._id,
+                                  color: product.color,
+                                  size: product.size,
+                                })
+                              )
                             }
                           />
                         </ProductAmountContainer>
@@ -432,7 +424,6 @@ export default function Cart() {
           )}
         </Bottom>
       </Wrapper>
-      <Footer />
     </Container>
   );
 }

@@ -8,6 +8,7 @@ const cartSlice = createSlice({
     total: 0,
     cartID: null,
     loadFromDb: false,
+    saveCartInDb: "init",
   },
   reducers: {
     addProduct: (state, action) => {
@@ -15,18 +16,24 @@ const cartSlice = createSlice({
       state.products.push(action.payload);
       state.total +=
         parseInt(action.payload.price) * parseInt(action.payload.quantity);
+      state.saveCartInDb = "save";
     },
     increaseProductQuantity: (state, action) => {
-      const productId = action.payload;
-      const productIndex = state.products.findIndex((p) => p._id === productId);
+      const { id, color, size } = action.payload;
+      const productIndex = state.products.findIndex(
+        (p) => p._id === id && p.color === color && p.size === size
+      );
       if (productIndex !== -1) {
         state.products[productIndex].quantity += 1;
         state.total += parseInt(state.products[productIndex].price);
       }
+      state.saveCartInDb = "save";
     },
     decreaseProductQuantity: (state, action) => {
-      const productId = action.payload;
-      const productIndex = state.products.findIndex((p) => p._id === productId);
+      const { id, color, size } = action.payload;
+      const productIndex = state.products.findIndex(
+        (p) => p._id === id && p.color === color && p.size === size
+      );
       if (productIndex !== -1) {
         if (state.products[productIndex].quantity > 1) {
           state.products[productIndex].quantity -= 1;
@@ -37,11 +44,18 @@ const cartSlice = createSlice({
           state.products.splice(productIndex, 1);
         }
       }
+      state.saveCartInDb = "save";
     },
     clearCart: (state, action) => {
       state.products = [];
       state.quantity = 0;
       state.total = 0;
+    },
+    clearCartAfterPayment: (state) => {
+      state.products = [];
+      state.quantity = 0;
+      state.total = 0;
+      state.saveCartInDb = "save";
     },
     loadCartFromDB: (state, action) => {
       state.products = action.payload.products;
@@ -57,6 +71,9 @@ const cartSlice = createSlice({
     cartLoaderState: (state, action) => {
       state.loadFromDb = action.payload;
     },
+    turnOffCartSaving: (state, action) => {
+      state.saveCartInDb = "init";
+    },
   },
 });
 
@@ -67,5 +84,7 @@ export const {
   clearCart,
   loadCartFromDB,
   cartLoaderState,
+  turnOffCartSaving,
+  clearCartAfterPayment,
 } = cartSlice.actions;
 export default cartSlice.reducer;
